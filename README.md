@@ -1,5 +1,7 @@
 # WhatsApp TUI for the Omarchy bar
 
+![WhatsApp in the Omarchy bar: badges, the hover preview and the menu](preview.png)
+
 A bar widget for [Omarchy](https://omarchy.org) that puts WhatsApp in your bar
 the way a tray icon would, through
 [whatsapp-tui](https://github.com/leonavas/whatsapp-tui), a WhatsApp client
