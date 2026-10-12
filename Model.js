@@ -122,10 +122,9 @@ function unreadOf(conv) {
   return Math.max(1, countOf(conv.unread))
 }
 
-// Unread messages per kind, muted chats left out (whatsapp-tui's own
-// `totals.direct_messages` and `group_messages` count them in, `attention`
-// does not; the badges follow `attention`). `mutedChats` counts the muted
-// unread chats, for the card's footer.
+// Unread chats per kind, as WhatsApp counts them (one per chat, however
+// many messages wait in it), muted chats left out like `attention` does.
+// `mutedChats` counts the muted unread chats, for the card's footer.
 function totals(state) {
   var result = { direct: 0, group: 0, mutedChats: 0 }
   if (!state) return result
@@ -134,8 +133,8 @@ function totals(state) {
     var conv = list[i]
     if (!conv || typeof conv !== "object" || !conv.id) continue
     if (isMuted(conv)) { result.mutedChats += 1; continue }
-    if (kindOf(conv.kind) === "group") result.group += unreadOf(conv)
-    else result.direct += unreadOf(conv)
+    if (kindOf(conv.kind) === "group") result.group += 1
+    else result.direct += 1
   }
   return result
 }

@@ -14,8 +14,8 @@ for the terminal.
 - **Icon.** The WhatsApp mark in the bar, white and tinted like the bar's
   glyphs by default (Outline, the green Color mark or any Nerd Font glyph are
   settings). It is dimmed while whatsapp-tui is not running.
-- **Badges.** Red at the bottom-right counts unread messages in direct chats,
-  blue at the top-right unread messages in groups. Muted chats count in
+- **Badges.** Red at the bottom-right counts unread direct chats,
+  blue at the top-right unread groups, as WhatsApp counts them. Muted chats count in
   neither; they only show in the preview's footer. A badge with nothing to
   count is not drawn.
 - **Combined mode.** "Group notifications" in the menu folds both into one
