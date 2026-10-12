@@ -808,8 +808,8 @@ BarWidget {
     visible: count > 0
     z: 2
     height: dotOnly ? Math.round(Style.bar.iconCanvas * root.badgeScale)
-                    : Math.round(digits.implicitHeight + Style.space(1))
-    width: dotOnly ? height : Math.max(height, Math.round(digits.implicitWidth + Style.space(5)))
+                    : Math.round(digits.contentHeight + Style.space(1))
+    width: dotOnly ? height : Math.max(height, Math.round(digits.contentWidth + Style.space(5)))
     radius: height / 2
 
     // Vertically a little past the corner: with a badge on each right-hand
@@ -828,7 +828,11 @@ BarWidget {
     Text {
       id: digits
       textFormat: Text.PlainText
-      anchors.centerIn: parent
+      // Aligned over the whole badge, like the card's pill: centerIn left
+      // the digit off to the right.
+      anchors.fill: parent
+      horizontalAlignment: Text.AlignHCenter
+      verticalAlignment: Text.AlignVCenter
       visible: !cornerBadge.dotOnly
       text: Model.badgeLabel(cornerBadge.count)
       color: root.badgeDigitColor
@@ -1084,8 +1088,9 @@ BarWidget {
               // Unread count as a pill, in the badge's color for the kind.
               Rectangle {
                 id: marker
-                width: Math.max(height, countText.implicitWidth + Style.space(8))
-                height: countText.implicitHeight + Style.space(2)
+                // Whole pixels: a fractional box puts the digit off center.
+                width: Math.max(height, Math.round(countText.contentWidth + Style.space(8)))
+                height: Math.round(countText.contentHeight + Style.space(2))
                 radius: height / 2
                 color: chatRow.kindColor
                 anchors.right: timeText.left
@@ -1095,7 +1100,12 @@ BarWidget {
                 Text {
                   id: countText
                   textFormat: Text.PlainText
-                  anchors.centerIn: parent
+                  // Centered by the text's own alignment over the whole pill,
+                  // not by centerIn, which rounds the text box's position
+                  // and left the digit a pixel or two to the right.
+                  anchors.fill: parent
+                  horizontalAlignment: Text.AlignHCenter
+                  verticalAlignment: Text.AlignVCenter
                   text: Model.badgeLabel(chatRow.modelData.count)
                   color: root.badgeDigitColor
                   font.family: root.fontFamily
