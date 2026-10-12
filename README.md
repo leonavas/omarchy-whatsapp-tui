@@ -55,8 +55,13 @@ for the terminal.
 ## Requirements
 
 - Omarchy, with its shell (the Quickshell bar).
-- whatsapp-tui installed and on your `PATH`, with your phone linked: see
-  [github.com/leonavas/whatsapp-tui](https://github.com/leonavas/whatsapp-tui).
+- whatsapp-tui installed and on your `PATH`, with your phone linked:
+
+  ```bash
+  curl -fsSL https://raw.githubusercontent.com/leonavas/whatsapp-tui/master/install.sh | sh
+  ```
+
+  More in [github.com/leonavas/whatsapp-tui](https://github.com/leonavas/whatsapp-tui).
 
 ## Install
 
