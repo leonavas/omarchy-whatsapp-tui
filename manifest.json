@@ -1,0 +1,276 @@
+{
+  "schemaVersion": 1,
+  "id": "leonavas.whatsapp-tui",
+  "name": "WhatsApp TUI",
+  "version": "0.1.0",
+  "author": "leonavas",
+  "license": "MIT",
+  "description": "WhatsApp in the Omarchy bar, through whatsapp-tui (the WhatsApp terminal client): a bar icon that opens it, parks it out of sight, badges unread direct chats and groups, previews them on hover, notifies new messages and pauses notifications.",
+  "kinds": [
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "barWidget": "WhatsAppTui.qml"
+  },
+  "barWidget": {
+    "displayName": "WhatsApp TUI",
+    "description": "WhatsApp as a tray icon, through whatsapp-tui: click to show or hide the window, red and blue badges for unread direct chats and groups, a preview of them on hover, desktop notifications for new messages.",
+    "category": "Status",
+    "aliases": [
+      "whatsapp-tui",
+      "whatsapp",
+      "zap",
+      "chat",
+      "messages",
+      "tray"
+    ],
+    "allowMultiple": false,
+    "defaultSection": "right",
+    "defaults": {
+      "launchCommand": "",
+      "windowClass": "org.omarchy.whatsapp-tui",
+      "iconStyle": "Mono",
+      "glyph": "󰖣",
+      "glyphSize": 0,
+      "glyphOffsetY": -0.5,
+      "badge": "Count",
+      "badgeLayout": "Split",
+      "directColor": "#b65f4e",
+      "groupColor": "#467996",
+      "badgeScale": 0.45,
+      "tintWhenUnread": false,
+      "hideMode": "Special workspace",
+      "specialWorkspace": "scratchpad",
+      "openInSpecial": true,
+      "autoStart": false,
+      "launchForeground": true,
+      "dimWhenClosed": true,
+      "hideWhenNotRunning": false,
+      "middleClickCloses": true,
+      "hoverPreview": true,
+      "previewRows": 6,
+      "previewMessages": 3,
+      "notifications": true,
+      "notificationText": true,
+      "mutedIndicator": "Bell"
+    },
+    "schema": [
+      {
+        "key": "launchCommand",
+        "type": "string",
+        "label": "Custom launch command",
+        "defaultValue": "",
+        "description": "Left empty, the widget runs `omarchy-launch-tui --app-id=<window class> whatsapp-tui`. Whatever you set here must open a window with the class below."
+      },
+      {
+        "key": "windowClass",
+        "type": "string",
+        "label": "Window class to watch",
+        "defaultValue": "org.omarchy.whatsapp-tui",
+        "description": "Matched exactly (case-insensitive). Also the app id the default launch command gives the terminal. A class other than the default also needs WHATSAPP_TUI_WINDOW_CLASS set for whatsapp-tui."
+      },
+      {
+        "key": "iconStyle",
+        "type": "enum",
+        "label": "Icon",
+        "options": [
+          "Mono",
+          "Outline",
+          "Color",
+          "Glyph"
+        ],
+        "defaultValue": "Mono",
+        "description": "Mono draws the white WhatsApp mark tinted with the bar's color. Outline draws it white with a faint dark edge, readable on light and dark bars. Color draws the green mark. Glyph draws any Nerd Font character instead."
+      },
+      {
+        "key": "glyph",
+        "type": "string",
+        "label": "Glyph",
+        "defaultValue": "󰖣",
+        "description": "Only used by the Glyph style."
+      },
+      {
+        "key": "glyphSize",
+        "type": "integer",
+        "label": "Glyph size (px)",
+        "min": 0,
+        "max": 32,
+        "step": 1,
+        "defaultValue": 0,
+        "description": "0 follows the bar's icon size. Only used by the Glyph style."
+      },
+      {
+        "key": "glyphOffsetY",
+        "type": "number",
+        "label": "Vertical nudge (px)",
+        "min": -6,
+        "max": 6,
+        "step": 0.5,
+        "defaultValue": -0.5,
+        "description": "Negative moves the glyph up, for glyphs whose ink sits off the bar's line."
+      },
+      {
+        "key": "badge",
+        "type": "enum",
+        "label": "Unread badge",
+        "options": [
+          "Count",
+          "Dot",
+          "None"
+        ],
+        "defaultValue": "Count",
+        "description": "Two badges at once: unread messages in direct chats at the bottom-right in red, in groups at the top-right in blue. Muted chats count in neither. A badge with nothing to count is not drawn. Dot marks the same corners without numbers."
+      },
+      {
+        "key": "badgeLayout",
+        "type": "enum",
+        "label": "Badge layout",
+        "options": [
+          "Split",
+          "Combined"
+        ],
+        "defaultValue": "Split",
+        "description": "Split shows direct chats (red, bottom-right) and groups (blue, top-right) as two badges. Combined shows one badge, bottom-right, with their sum: red while a direct chat waits, blue when only groups do. The icon's menu toggles this as \"Group notifications\"."
+      },
+      {
+        "key": "directColor",
+        "type": "string",
+        "label": "Direct chat badge color",
+        "defaultValue": "#b65f4e",
+        "description": "Unread messages in direct chats. Empty follows the theme's urgent color."
+      },
+      {
+        "key": "groupColor",
+        "type": "string",
+        "label": "Group badge color",
+        "defaultValue": "#467996",
+        "description": "Unread messages in groups. Empty uses the direct chat color."
+      },
+      {
+        "key": "badgeScale",
+        "type": "number",
+        "label": "Dot size",
+        "min": 0.2,
+        "max": 0.9,
+        "step": 0.05,
+        "defaultValue": 0.45,
+        "description": "The dot's diameter as a fraction of the icon. Only used by the Dot badge."
+      },
+      {
+        "key": "tintWhenUnread",
+        "type": "boolean",
+        "label": "Color the icon while something is waiting",
+        "defaultValue": false,
+        "description": "Mono and Glyph styles only: the mark takes the direct chat color, or the group color when only groups are waiting."
+      },
+      {
+        "key": "hideMode",
+        "type": "enum",
+        "label": "What a click on the open window does",
+        "options": [
+          "Special workspace",
+          "Never hide"
+        ],
+        "defaultValue": "Special workspace",
+        "description": "Special workspace parks the window in a hidden Hyprland special workspace, where whatsapp-tui keeps running and counting."
+      },
+      {
+        "key": "specialWorkspace",
+        "type": "string",
+        "label": "Name of the special workspace",
+        "defaultValue": "scratchpad",
+        "description": "Used as special:<name>. \"scratchpad\" is Omarchy's own, toggled with SUPER+S."
+      },
+      {
+        "key": "openInSpecial",
+        "type": "boolean",
+        "label": "Open straight into the special workspace",
+        "defaultValue": true,
+        "description": "Every new whatsapp-tui window moves to special:<name>, and a click shows or hides that workspace. The icon's menu toggles this as \"Open in Scratchpad\"."
+      },
+      {
+        "key": "autoStart",
+        "type": "boolean",
+        "label": "Open whatsapp-tui when the shell starts",
+        "defaultValue": false,
+        "description": "The icon's menu toggles this as \"Launch on Login\"."
+      },
+      {
+        "key": "launchForeground",
+        "type": "boolean",
+        "label": "Show and focus whatsapp-tui when it opens",
+        "defaultValue": true,
+        "description": "Off, whatsapp-tui opens in the background, hidden in the special workspace and without taking the focus, also when opened from the icon. The icon's menu toggles this as \"Launch in Foreground\"."
+      },
+      {
+        "key": "dimWhenClosed",
+        "type": "boolean",
+        "label": "Dim the icon while whatsapp-tui is not running",
+        "defaultValue": true
+      },
+      {
+        "key": "hideWhenNotRunning",
+        "type": "boolean",
+        "label": "Remove the icon from the bar while whatsapp-tui is not running",
+        "defaultValue": false
+      },
+      {
+        "key": "middleClickCloses",
+        "type": "boolean",
+        "label": "Middle click quits whatsapp-tui",
+        "defaultValue": true
+      },
+      {
+        "key": "hoverPreview",
+        "type": "boolean",
+        "label": "Preview unread chats on hover",
+        "defaultValue": true
+      },
+      {
+        "key": "previewRows",
+        "type": "integer",
+        "label": "Chats shown in the preview",
+        "min": 1,
+        "max": 20,
+        "step": 1,
+        "defaultValue": 6
+      },
+      {
+        "key": "previewMessages",
+        "type": "integer",
+        "label": "Messages shown per chat",
+        "min": 1,
+        "max": 5,
+        "step": 1,
+        "defaultValue": 3,
+        "description": "The newest unread messages of each chat, up to the 5 whatsapp-tui publishes."
+      },
+      {
+        "key": "notifications",
+        "type": "boolean",
+        "label": "Desktop notifications",
+        "defaultValue": true,
+        "description": "A notification for each new message, except in muted chats, while notifications are paused, and for the chat you have open on screen. A click opens the chat at that message. The icon's menu toggles this as \"Desktop notifications\"."
+      },
+      {
+        "key": "notificationText",
+        "type": "boolean",
+        "label": "Show the message in notifications",
+        "defaultValue": true,
+        "description": "Off, notifications say who wrote but not what."
+      },
+      {
+        "key": "mutedIndicator",
+        "type": "enum",
+        "label": "While notifications are paused",
+        "options": [
+          "Bell",
+          "Dim",
+          "None"
+        ],
+        "defaultValue": "Bell",
+        "description": "Bell fades the mark and puts a small bell-off in the bottom-right corner, Dim fades the whole icon, None shows nothing. A pause hides both badges."
+      }
+    ]
+  }
+}
